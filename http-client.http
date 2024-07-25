@@ -1,0 +1,67 @@
+### Login
+POST {{host}}/api/v1/login
+Content-Type: application/json; charset=UTF-8
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.global.set("auth_token", response.body.token);
+    client.global.set("refresh_token", response.body.refreshToken);
+%}
+
+### Refresh token
+POST {{host}}/api/v1/token/refresh
+Content-Type: application/json; charset=UTF-8
+Content-Encoding: gzip
+Accept: application/json
+Cache-Control: no-cache
+
+{
+  "refreshToken": "{{refresh_token}}"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.global.set("auth_token", response.body.token);
+    client.global.set("refresh_token", response.body.refreshToken);
+%}
+
+### Get authors
+GET {{host}}/api/v1/authors
+Content-Type: application/json; charset=UTF-8
+Content-Encoding: gzip
+
+### Create author
+POST {{host}}/api/v1/authors
+Content-Type: application/json; charset=UTF-8
+
+{
+  "name": "Ismail"
+}
+
+### Update author
+PUT {{host}}/api/v1/authors/01901df9-cf0a-7c12-a335-4d7909840846/edit
+Content-Type: application/json; charset=UTF-8
+
+{
+  "name": "Ismail 2"
+}
+
+### Delete author
+DELETE {{host}}/api/v1/authors/01901df9-d829-7083-bb3a-62c85425993c
+Content-Type: application/json; charset=UTF-8
+
+### Get Books
+GET {{host}}/api/v1/books
+Content-Type: application/json; charset=UTF-8
+Content-Encoding: gzip

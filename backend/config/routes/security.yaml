@@ -1,0 +1,9 @@
+_security_logout:
+    resource: security.route_loader.logout
+    type: service
+
+api_token_invalidate:
+    path: /api/v1/token/invalidate
+
+_security_login:
+    path: /api/v1/login
